@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -182,7 +182,7 @@ namespace reaver
         }
 
         template<typename T>
-        auto make_type_checking_constructor(std::unordered_map<type_identifier, optional<std::size_t>> type_specifiers)
+        auto make_type_checking_constructor(std::unordered_map<type_identifier, std::optional<std::size_t>> type_specifiers)
         {
             return [type_specifiers = std::move(type_specifiers)](std::vector<std::shared_ptr<variable>> variables) -> std::shared_ptr<variable> {
                 if (std::count_if(variables.begin(), variables.end(), [](auto && variable) { return variable->type() == nullptr; }))

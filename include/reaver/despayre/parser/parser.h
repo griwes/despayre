@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -24,7 +24,7 @@
 
 #include <vector>
 
-#include <boost/locale.hpp>
+#include <boost/locale/encoding.hpp>
 
 #include <reaver/variant.h>
 #include <reaver/optional.h>
@@ -85,24 +85,24 @@ namespace reaver
             return std::move(*ctx.begin++);
         }
 
-        inline reaver::optional<token &> peek(context & ctx)
+        inline token * peek(context & ctx)
         {
             if (ctx.begin != ctx.end)
             {
-                return { *ctx.begin };
+                return &*ctx.begin;
             }
 
-            return reaver::none;
+            return nullptr;
         }
 
-        inline reaver::optional<token &> peek(context & ctx, token_type expected)
+        inline token * peek(context & ctx, token_type expected)
         {
             if (ctx.begin != ctx.end && ctx.begin->type == expected)
             {
-                return { *ctx.begin };
+                return &*ctx.begin;
             }
 
-            return reaver::none;
+            return nullptr;
         }
 
         struct string_node
@@ -158,7 +158,7 @@ namespace reaver
             }
         };
 
-        using simple_expression = variant<
+        using simple_expression = std::variant<
             string_node,
             id_expression,
             instantiation

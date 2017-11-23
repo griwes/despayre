@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -71,11 +71,11 @@ std::vector<reaver::despayre::_v1::token> reaver::despayre::_v1::tokenize(const 
 
     std::vector<token> tokens;
 
-    auto get = [&]() -> reaver::optional<char32_t>
+    auto get = [&]() -> std::optional<char32_t>
     {
         if (begin == end)
         {
-            return reaver::none;
+            return std::nullopt;
         }
 
         if (*begin == U'\n')
@@ -89,11 +89,11 @@ std::vector<reaver::despayre::_v1::token> reaver::despayre::_v1::tokenize(const 
         return *begin++;
     };
 
-    auto peek = [&](std::size_t x = 0) -> reaver::optional<char32_t>
+    auto peek = [&](std::size_t x = 0) -> std::optional<char32_t>
     {
         if (static_cast<std::size_t>(std::distance(begin, end)) < x)
         {
-            return reaver::none;
+            return std::nullopt;
         }
 
         auto ret = begin;

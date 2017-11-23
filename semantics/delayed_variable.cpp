@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -24,7 +24,7 @@
 
 bool reaver::despayre::_v1::delayed_variable::try_resolve(reaver::despayre::_v1::semantic_context & ctx)
 {
-    return get<0>(fmap(_state, make_overload_set(
+    return std::get<0>(fmap(_state, make_overload_set(
         [&](const std::shared_ptr<variable> &) {
             return false;
         },
@@ -50,7 +50,7 @@ bool reaver::despayre::_v1::delayed_variable::try_resolve(reaver::despayre::_v1:
             if (std::count_if(info.arguments.begin(), info.arguments.end(), [](auto && arg) { return arg->type() == nullptr; }) == 0)
             {
                 _state = instantiate(ctx, info.actual_type, info.arguments);
-                assert(get<0>(_state)->type());
+                assert(std::get<0>(_state)->type());
                 ctx.unresolved.erase(ctx.unresolved.find(std::dynamic_pointer_cast<delayed_variable>(shared_from_this())));
                 return true;
             }

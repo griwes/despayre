@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -96,25 +96,25 @@ namespace reaver
                 // do it twice so lazy targets can get it right
                 std::unordered_set<std::shared_ptr<class target>> deps;
 
-                function<void (const std::shared_ptr<class target> &)> visit = [&](const auto & target) {
+                auto visit = [&](auto && self, const auto & target) -> void {
                     deps.insert(target);
                     for (auto && dep : target->dependencies(ctx))
                     {
                         if (deps.find(dep) == deps.end())
                         {
-                            visit(dep);
+                            self(self, dep);
                         }
                     }
                 };
 
-                visit(target);
+                visit(visit, target);
                 for (auto && dep : deps)
                 {
                     dep->invalidate();
                 }
                 deps.clear();
 
-                visit(target);
+                visit(visit, target);
 
                 if (!target->built(ctx))
                 {

@@ -1,6 +1,6 @@
 CXX = c++
 LD = c++
-CXXFLAGS += -Os -Wall -std=c++1z -MD -fPIC -Wno-unused-parameter -g -pthread -Wno-unused-variable
+CXXFLAGS += -Os -Wall -std=c++1z -MD -fPIC -Wno-unused-parameter -g -pthread -Wno-unused-variable -fno-omit-frame-pointer
 SOFLAGS += -shared
 LDFLAGS += -pthread
 LIBRARIES += -lboost_filesystem -lboost_system -ldl

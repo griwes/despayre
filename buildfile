@@ -1,6 +1,6 @@
 cxx.version = "c++1z"
 
-cxx.flags = "-Wall -I./include/reaver" // and a temporary workaround for reverse caps
+cxx.flags = "-Os -Wall -I./include/reaver" // and a temporary workaround for reverse caps
     + " -fPIC"
 cxx.gcc.flags = ""
 cxx.clang.flags = "-Wextra -Wpedantic -Weffc++ -Werror"

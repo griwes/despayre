@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -60,7 +60,7 @@ std::shared_ptr<reaver::despayre::_v1::variable> reaver::despayre::_v1::analyze_
 
 std::shared_ptr<reaver::despayre::_v1::variable> reaver::despayre::_v1::analyze_simple_expression(semantic_context & ctx, const reaver::despayre::_v1::simple_expression & expr)
 {
-    return get<0>(fmap(expr, make_overload_set(
+    return std::get<0>(fmap(expr, make_overload_set(
         [&](const string_node & str) -> std::shared_ptr<variable> {
             return std::make_shared<string>(str.value.string);
         },

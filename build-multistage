@@ -14,7 +14,7 @@ fi
 # rm -rf stage-3
 
 # build stage 1
-make -j ${processor_count} -l ${processor_count} CC=${CC} CXX=${CXX} LD=${LD}
+make -j ${processor_count} -l ${processor_count} CC=${CC:-cc} CXX=${CXX:-c++} LD=${LD:-c++}
 
 # build stage 2 with stage 1
 LD_LIBRARY_PATH="${PWD}:${LD_LIBRARY_PATH}" ./despayre all stage-2

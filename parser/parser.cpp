@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -83,7 +83,7 @@ std::vector<reaver::despayre::operation> reaver::despayre::_v1::parse_operations
     {
         operation_type operation = expect(ctx, peeked->type).type == token_type::plus ? operation_type::addition : operation_type::removal;
         auto operand = parse_simple_expression(ctx);
-        auto end = get<0>(fmap(operand, [](auto && op){ return op.range.end(); }));
+        auto end = std::get<0>(fmap(operand, [](auto && op){ return op.range.end(); }));
         operations.push_back({ range_type{ peeked->range.start(), end }, operation, std::move(operand) });
 
         peeked = peek(ctx);
@@ -96,14 +96,14 @@ reaver::despayre::expression reaver::despayre::_v1::parse_expression(reaver::des
 {
     auto expr = parse_simple_expression(ctx);
     auto peeked = peek(ctx);
-    auto start = get<0>(fmap(expr, [](auto && expr){ return expr.range.start(); }));
+    auto start = std::get<0>(fmap(expr, [](auto && expr){ return expr.range.start(); }));
     if (peeked && (peeked->type == token_type::plus || peeked->type == token_type::minus))
     {
         auto operations = parse_operations(ctx);
         return expression{ range_type{ start, operations.back().range.end() }, std::move(expr), std::move(operations) };
     }
 
-    auto end = get<0>(fmap(expr, [](auto && expr){ return expr.range.end(); }));
+    auto end = std::get<0>(fmap(expr, [](auto && expr){ return expr.range.end(); }));
     return expression{ range_type{ start, end }, std::move(expr), {} };
 }
 

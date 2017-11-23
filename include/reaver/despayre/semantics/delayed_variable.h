@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -51,7 +51,7 @@ namespace reaver
             {
                 if (_state.index() == 0)
                 {
-                    return get<0>(_state)->type();
+                    return std::get<0>(_state)->type();
                 }
 
                 return nullptr;
@@ -61,7 +61,7 @@ namespace reaver
 
             virtual std::shared_ptr<target> as_target() override
             {
-                return get<0>(fmap(_state, make_overload_set(
+                return std::get<0>(fmap(_state, make_overload_set(
                     [&](const std::shared_ptr<variable> & resolved) {
                         return resolved->as_target();
                     },
@@ -77,11 +77,11 @@ namespace reaver
             {
                 if (_state.index() == 0)
                 {
-                    if (auto nested = std::dynamic_pointer_cast<delayed_variable>(get<0>(_state)))
+                    if (auto nested = std::dynamic_pointer_cast<delayed_variable>(std::get<0>(_state)))
                     {
                         return nested->_shared_this();
                     }
-                    return get<0>(_state);
+                    return std::get<0>(_state);
                 }
 
                 return shared_from_this();
@@ -91,11 +91,11 @@ namespace reaver
             {
                 if (_state.index() == 0)
                 {
-                    if (auto nested = std::dynamic_pointer_cast<delayed_variable>(get<0>(_state)))
+                    if (auto nested = std::dynamic_pointer_cast<delayed_variable>(std::get<0>(_state)))
                     {
                         return nested->_shared_this();
                     }
-                    return get<0>(_state);
+                    return std::get<0>(_state);
                 }
 
                 return shared_from_this();
@@ -126,7 +126,7 @@ namespace reaver
                 operation_type operation;
             };
 
-            variant<
+            std::variant<
                 std::shared_ptr<variable>,
                 _delayed_instantiation_info,
                 _delayed_reference_info,

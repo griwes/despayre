@@ -129,7 +129,7 @@ namespace reaver
         private:
             boost::filesystem::path _path;
             std::shared_ptr<compiler> _compiler;
-            optional<std::vector<std::shared_ptr<target>>> _deps;
+            std::optional<std::vector<std::shared_ptr<target>>> _deps;
             context_ptr _cached_context;
         };
 
@@ -226,8 +226,8 @@ namespace reaver
 
         private:
             std::vector<boost::filesystem::path> _args;
-            optional<std::vector<std::shared_ptr<target>>> _file_deps;
-            optional<std::vector<linker_capability>> _linker_caps;
+            std::optional<std::vector<std::shared_ptr<target>>> _file_deps;
+            std::optional<std::vector<linker_capability>> _linker_caps;
             context_ptr _cached_context;
         };
 

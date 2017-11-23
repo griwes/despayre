@@ -1,7 +1,7 @@
 /**
  * Despayre License
  *
- * Copyright © 2016 Michał "Griwes" Dominiak
+ * Copyright © 2016-2017 Michał "Griwes" Dominiak
  *
  * This software is provided 'as-is', without any express or implied
  * warranty. In no event will the authors be held liable for any damages
@@ -26,7 +26,7 @@
 #include <memory>
 #include <vector>
 
-#include <boost/locale.hpp>
+#include <boost/locale/encoding.hpp>
 #include <boost/algorithm/string.hpp>
 
 #include <reaver/exception.h>
